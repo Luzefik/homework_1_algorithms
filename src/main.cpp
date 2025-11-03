@@ -21,7 +21,6 @@ int main() {
         vector<student> basic_arr = readFile("students.csv");
         if (basic_arr.size() > size) basic_arr.resize(size);
 
-        // Якщо після обрізки або через порожній файл немає студентів — пропускаємо цей розмір
         if (basic_arr.empty()) {
             cout << "\n=== Бенчмарк для 0 студентів (пропускаємо) ===" << endl;
             continue;
@@ -29,14 +28,11 @@ int main() {
 
         cout << "\n=== Бенчмарк для " << basic_arr.size() << " студентів ===" << endl;
 
-       // Ініціалізація структури даних (варіант 1)
         DataStructureV1 ds;
         ds.init(basic_arr);
-       // Виведення приблизного використання пам'яті
        cout << "Використана пам'ять (приблизно): " << fixed << setprecision(2)
            << ds.get_memory_usage() / (1024.0 * 1024.0) << " MB" << endl;
 
-       // --- Бенчмарк операцій протягом 10 секунд ---
         int duration_sec = 10;
         random_device rd;
         mt19937 gen(rd());
@@ -74,11 +70,9 @@ int main() {
         cout << "  - операція 3 (get_top_group): " << op3_count << endl;
         cout << "Операцій за секунду: " << (total_ops / (double)duration_sec) << endl;
 
-        // Бенчмарк сортування (Задача III)
         benchmark_sorting(basic_arr);
     }
 
-    // Фінальне повне сортування та збереження
     cout << "\n=== Фінальне сортування всіх студентів ===" << endl;
     vector<student> all_students = readFile("students.csv");
     vector<student*> students_ptrs;

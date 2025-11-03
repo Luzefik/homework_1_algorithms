@@ -25,7 +25,6 @@ struct BenchResult {
     size_t rss_max;
 };
 
-// Допоміжна функція: запуск одного варіанту на duration_sec секунд із заданими співвідношеннями
 template<typename DS>
 BenchResult run_variant(const string &variant_name, vector<student> &data, int duration_sec,
                         const array<int,3> &ratio) {
@@ -37,7 +36,6 @@ BenchResult run_variant(const string &variant_name, vector<student> &data, int d
 
     random_device rd;
     mt19937 gen(rd());
-    // формуємо ваговий розподіл відповідно до співвідношення
     vector<int> weights;
     for (int i = 0; i < ratio[0]; ++i) weights.push_back(1);
     for (int i = 0; i < ratio[1]; ++i) weights.push_back(2);
@@ -138,7 +136,6 @@ void run_sorting_bench(const vector<int> &sizes, int repeats, const string &out_
             auto d2 = duration_cast<milliseconds>(t2e - t2s).count();
             ofs << "quick_sort," << data.size() << "," << run << "," << d2 << "," << 0 << "\n";
 
-            // перевірка тотожності результатів
             bool ok = true;
             for (size_t i = 0; i < a_std.size(); ++i) {
                 if (a_std[i]->m_email != a_quick[i]->m_email) { ok = false; break; }

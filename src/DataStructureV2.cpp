@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void DataStructureV2::init(std::vector<student> &basic_arr) {
+void DataStructureV2::init(vector<student> &basic_arr) {
     original_arr_ptr = &basic_arr;
     for (size_t i = 0; i < basic_arr.size(); ++i) {
         student* s = &basic_arr[i];
@@ -22,12 +22,12 @@ void DataStructureV2::get_top_100() {
     }
 }
 
-void DataStructureV2::set_grade_by_email(std::string student_email, float new_grade) {
+void DataStructureV2::set_grade_by_email(string student_email, float new_grade) {
     auto it = students_emails.find(student_email);
     if (it == students_emails.end()) return;
     student* s = it->second;
     float old = s->m_rating;
-    std::string g = s->m_group;
+    string g = s->m_group;
     students_groups[g].first += (new_grade - old);
     auto rit = rating_index.find(student_email);
     if (rit != rating_index.end()) {
@@ -38,8 +38,8 @@ void DataStructureV2::set_grade_by_email(std::string student_email, float new_gr
     rating_index[student_email] = nit;
 }
 
-std::string DataStructureV2::get_top_group() {
-    std::string best = "";
+string DataStructureV2::get_top_group() {
+    string best = "";
     double max_avg = -1.0;
     for (auto const& kv : students_groups) {
         if (kv.second.second == 0) continue;
@@ -64,8 +64,8 @@ size_t DataStructureV2::get_memory_usage() {
         mem += s.m_phone_number.capacity();
     }
     mem += sorted_rating.size() * sizeof(student*);
-    mem += students_emails.size() * (sizeof(std::string) + sizeof(student*));
-    mem += rating_index.size() * (sizeof(std::string) + sizeof(void*));
-    mem += students_groups.size() * (sizeof(std::string) + sizeof(std::pair<float,int>));
+    mem += students_emails.size() * (sizeof(string) + sizeof(student*));
+    mem += rating_index.size() * (sizeof(string) + sizeof(void*));
+    mem += students_groups.size() * (sizeof(string) + sizeof(pair<float,int>));
     return mem;
 }
