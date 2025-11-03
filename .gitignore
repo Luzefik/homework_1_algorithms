@@ -1,0 +1,50 @@
+# Build directories
+cmake-build-debug/
+build/
+
+# VSCode
+.vscode/
+
+# CLion / JetBrains
+.idea/
+
+# Python virtualenv
+.venv/
+
+# macOS
+.DS_Store
+
+# Binaries
+bin/
+
+# Generated CSVs and results
+bench_results/
+sorted_students.csv
+
+# CMake files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.cmake
+
+# Ninja
+build.ninja
+rules.ninja
+
+# Object files
+*.o
+*.obj
+*.so
+*.dylib
+*.exe
+
+# Logs
+*.log
+
+# Editor swap
+*~
+
+#---
+*.txt
+*.pdf
+*.csv
