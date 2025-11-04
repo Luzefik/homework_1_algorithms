@@ -18,6 +18,8 @@ struct BenchResult {
     string variant;
     int size;
     int op1; int op2; int op3; int total;
+    double init_ms; // time to initialize the data structure (milliseconds)
+    double bench_ms; // actual benchmark duration (milliseconds)
     double ops_per_sec;
     size_t mem_bytes;
     size_t rss_before;
@@ -72,6 +74,8 @@ BenchResult run_variant(const string &variant_name, vector<student> &data, int d
     r.variant = variant_name;
     r.size = (int)data.size();
     r.op1 = op1; r.op2 = op2; r.op3 = op3; r.total = total;
+    r.init_ms = init_ms;
+    r.bench_ms = secs * 1000.0;
     r.ops_per_sec = total / secs;
     r.mem_bytes = ds.get_memory_usage();
     r.rss_before = rss_before; r.rss_after = rss_after; r.rss_max = rss_max;
@@ -85,7 +89,8 @@ void run_all_benchmarks(const vector<int> &sizes, int duration_sec, const string
     array<int,3> ratio_v3 = {3,5,2};
 
     ofstream ofs(out_csv);
-    ofs << "variant,size,op1,op2,op3,total,ops_per_sec,mem_bytes,rss_before,rss_after,rss_max\n";
+    // added init_ms and bench_ms columns for more detailed analysis
+    ofs << "variant,size,op1,op2,op3,total,init_ms,bench_ms,ops_per_sec,mem_bytes,rss_before,rss_after,rss_max\n";
 
     for (int sz : sizes) {
         cout << "Виконується бенчмарк для розміру=" << sz << "\n";
@@ -94,15 +99,15 @@ void run_all_benchmarks(const vector<int> &sizes, int duration_sec, const string
 
         // V1
         auto r1 = run_variant<DataStructureV1>("V1_vector", data, duration_sec, ratio_v1);
-        ofs << r1.variant << "," << r1.size << "," << r1.op1 << "," << r1.op2 << "," << r1.op3 << "," << r1.total << "," << r1.ops_per_sec << "," << r1.mem_bytes << "," << r1.rss_before << "," << r1.rss_after << "," << r1.rss_max << "\n";
+    ofs << r1.variant << "," << r1.size << "," << r1.op1 << "," << r1.op2 << "," << r1.op3 << "," << r1.total << "," << r1.init_ms << "," << r1.bench_ms << "," << r1.ops_per_sec << "," << r1.mem_bytes << "," << r1.rss_before << "," << r1.rss_after << "," << r1.rss_max << "\n";
 
         // V2
         auto r2 = run_variant<DataStructureV2>("V2_map_multiset", data, duration_sec, ratio_v2);
-        ofs << r2.variant << "," << r2.size << "," << r2.op1 << "," << r2.op2 << "," << r2.op3 << "," << r2.total << "," << r2.ops_per_sec << "," << r2.mem_bytes << "," << r2.rss_before << "," << r2.rss_after << "," << r2.rss_max << "\n";
+    ofs << r2.variant << "," << r2.size << "," << r2.op1 << "," << r2.op2 << "," << r2.op3 << "," << r2.total << "," << r2.init_ms << "," << r2.bench_ms << "," << r2.ops_per_sec << "," << r2.mem_bytes << "," << r2.rss_before << "," << r2.rss_after << "," << r2.rss_max << "\n";
 
         // V3
         auto r3 = run_variant<DataStructureV3>("V3_unordered_set", data, duration_sec, ratio_v3);
-        ofs << r3.variant << "," << r3.size << "," << r3.op1 << "," << r3.op2 << "," << r3.op3 << "," << r3.total << "," << r3.ops_per_sec << "," << r3.mem_bytes << "," << r3.rss_before << "," << r3.rss_after << "," << r3.rss_max << "\n";
+    ofs << r3.variant << "," << r3.size << "," << r3.op1 << "," << r3.op2 << "," << r3.op3 << "," << r3.total << "," << r3.init_ms << "," << r3.bench_ms << "," << r3.ops_per_sec << "," << r3.mem_bytes << "," << r3.rss_before << "," << r3.rss_after << "," << r3.rss_max << "\n";
     }
     ofs.close();
     cout << "Бенчмарки завершені, результати у: " << out_csv << "\n";
