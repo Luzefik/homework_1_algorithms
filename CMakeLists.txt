@@ -26,7 +26,6 @@ add_executable(homework_1
     ${SRC_DIR}/main.cpp
     ${SRC_COMMON}
 )
-
 add_executable(run_all
     ${SRC_DIR}/run_all.cpp
     ${SRC_COMMON}
