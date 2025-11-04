@@ -21,6 +21,9 @@ bin/
 bench_results/
 sorted_students.csv
 
+# Local install prefix created by `cmake --install --prefix ./local`
+local/
+
 # CMake files
 CMakeFiles/
 CMakeCache.txt
