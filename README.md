@@ -60,7 +60,7 @@ chmod +x run_simple.sh
 * **`set_grade_by_email`**: Виконує лінійний пошук по `std::vector` ($O(N)$) для знаходження студента.
 * **`get_top_group`**: Виконує повний прохід по `std::vector` ($O(N)$), агрегуючи дані в тимчасовий `std::unordered_map`.
 
-#### Результати 
+#### Результати
 <img width="800" height="500" alt="sorting_times" src="https://github.com/user-attachments/assets/bd7e8fd8-9dc4-48f3-ab9a-338d5739016d" />
 <img width="800" height="500" alt="ops_throughput" src="https://github.com/user-attachments/assets/e8666da7-f25d-43a3-b00a-9637bc867e40" />
 <img width="800" height="500" alt="mem_usage" src="https://github.com/user-attachments/assets/75afbbbe-0ac2-4e58-ac15-6f61e8b5e856" />
@@ -69,6 +69,11 @@ chmod +x run_simple.sh
 
 Висновки по графіках
 --------------------
+
+- `sorting_times.png` — час сортування (std::sort vs quick_sort):
+    - std::sort та реалізація quick_sort дають порівнянні результати.
+    - На великих масивах `std::sort` трохи швидше у вимірах (різниця кількох мс при 100k), але обидва коректні.
+
 - `ops_throughput.png` — операцій/сек від розміру:
     - Загальна тенденція: для всіх реалізацій пропускна здатність падає зі збільшенням розміру набору даних.
     - V1 показав хорошу швидкість на найменшому наборі (size=100), але при великих розмірах програє V2/V3.
@@ -77,10 +82,6 @@ chmod +x run_simple.sh
 - `mem_usage.png` — оцінка використаної пам'яті:
     - Усі три реалізації використовують подібний обсяг пам'яті на тих самих розмірах.
     - Різниці невеликі (порядок сотень тисяч байт) — немає очевидного лідера з точки зору пам'яті.
-
-- `sorting_times.png` — час сортування (std::sort vs quick_sort):
-    - std::sort та реалізація quick_sort дають порівнянні результати.
-    - На великих масивах `std::sort` трохи швидше у вимірах (різниця кількох мс при 100k), але обидва коректні.
 
 - `init_times.png` — час ініціалізації структури (init_ms):
     - Час ініціалізації зростає з розміром даних (очікувано).
